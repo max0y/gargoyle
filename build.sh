@@ -28,6 +28,7 @@ set_version_variables()
 	branch_name="Chaos Calmer"
 	branch_id="chaos_calmer"
 	packages_branch="for-15.05"
+	luci_branch="for-15.05"
 
 
 	# set precise commit in repo to use 
@@ -457,12 +458,17 @@ fi
 
 openwrt_src_dir="$top_dir/downloaded/$branch_id"
 openwrt_package_dir="$top_dir/downloaded/$branch_id-packages"
+# add openwrt_luci_dir
+openwrt_luci_dir="$top_dir/downloaded/$branch_id-luci"
+
 if [ -n "$openwrt_commit" ] ; then
 	openwrt_src_dir="$top_dir/downloaded/$branch_id-${openwrt_abbrev_commit}"
 	openwrt_package_dir="$top_dir/downloaded/$branch_id-packages-${openwrt_abbrev_commit}"
+	openwrt_package_dir="$top_dir/downloaded/$branch_id-luci-${openwrt_abbrev_commit}"
 else
 	rm -rf "$openwrt_src_dir"
 	rm -rf "$openwrt_package_dir"
+	rm -rf "$openwrt_luci_dir"
 fi
 	
 
@@ -621,6 +627,11 @@ for target in $targets ; do
 				cp -r "$openwrt_package_dir/$other" $target-src/package
 			fi
 		done
+
+		if [ ! -d "$openwrt_luci_dir" ] ; then
+			git clone -b "$luci_branch" https://github.com/openwrt/luci.git "$openwrt_luci_dir/luci"
+			cp -r "$openwrt_luci_dir/luci" $target-src/package
+		fi 
 	fi
 
 
