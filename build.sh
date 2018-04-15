@@ -464,7 +464,7 @@ openwrt_luci_dir="$top_dir/downloaded/$branch_id-luci"
 if [ -n "$openwrt_commit" ] ; then
 	openwrt_src_dir="$top_dir/downloaded/$branch_id-${openwrt_abbrev_commit}"
 	openwrt_package_dir="$top_dir/downloaded/$branch_id-packages-${openwrt_abbrev_commit}"
-	openwrt_package_dir="$top_dir/downloaded/$branch_id-luci-${openwrt_abbrev_commit}"
+	openwrt_luci_dir="$top_dir/downloaded/$branch_id-luci-${openwrt_abbrev_commit}"
 else
 	rm -rf "$openwrt_src_dir"
 	rm -rf "$openwrt_package_dir"
